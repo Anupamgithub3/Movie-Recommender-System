@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Movie Recommendation System</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            margin: 0;
+            padding: 40px;
+            background: #f4f4f4;
+        }
+        .container {
+            max-width: 500px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background: black;
+            color: white;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        ul {
+            margin-top: 20px;
+            padding-left: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <h2>Movie Recommendation System</h2>
+
+    <input id="movieInput" placeholder="Enter a movie name..." />
+
+    <button onclick="getRecommendation()">Recommend</button>
+
+    <ul id="resultList" style="list-style:none;padding-left:0;"></ul>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
