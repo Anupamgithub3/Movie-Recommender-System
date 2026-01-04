@@ -1,5 +1,7 @@
 from fastapi import FastAPI
 import pandas as pd
+import numpy as np
+import gc
 import ast
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
@@ -92,11 +94,18 @@ new_df = movies[['movie_id', 'title', 'tags']]
 new_df['tags'] = new_df['tags'].apply(lambda x: " ".join(x))
 
 # Vectorization
+# Vectorization
 cv = CountVectorizer(max_features=5000, stop_words='english')
-vectors = cv.fit_transform(new_df['tags']).toarray()
+vectors = cv.fit_transform(new_df['tags']) # Keep sparse, removed .toarray()
 
 # Similarity matrix
-similarity = cosine_similarity(vectors)
+similarity = cosine_similarity(vectors).astype(np.float16)
+
+# Cleanup to free RAM
+del new_df['tags']
+del vectors
+del cv
+gc.collect()
 
 # =====================
 # SERIES PREPROCESSING
@@ -113,8 +122,14 @@ series_df['tags'] = series_df['Genre'] + series_df['Summary']
 series_df['tags'] = series_df['tags'].apply(lambda x: " ".join(x))
 
 series_cv = CountVectorizer(max_features=5000, stop_words='english')
-series_vectors = series_cv.fit_transform(series_df['tags']).toarray()
-series_similarity = cosine_similarity(series_vectors)
+series_vectors = series_cv.fit_transform(series_df['tags']) # Keep sparse
+series_similarity = cosine_similarity(series_vectors).astype(np.float16)
+
+# Cleanup
+del series_df['tags']
+del series_vectors
+del series_cv
+gc.collect()
 
 
 # =====================
