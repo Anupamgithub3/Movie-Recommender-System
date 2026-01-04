@@ -14,7 +14,8 @@ app.get("/api/recommend", async (req, res) => {
         console.log(`[MOVIES] Request for: ${movie}`);
         if (!movie) return res.status(400).json({ error: "Movie name is required" });
 
-        const response = await axios.get(`http://127.0.0.1:8000/recommend?movie=${encodeURIComponent(movie)}`);
+        const mlBackend = process.env.ML_BACKEND_URL || 'http://127.0.0.1:8000';
+        const response = await axios.get(`${mlBackend}/recommend?movie=${encodeURIComponent(movie)}`);
         console.log(`[MOVIES] Backend responded for: ${movie}`);
         res.json(response.data);
     } catch (error) {
@@ -30,7 +31,8 @@ app.get("/api/recommend_series", async (req, res) => {
         console.log(`[SERIES] Request for: ${series}`);
         if (!series) return res.status(400).json({ error: "Series name is required" });
 
-        const response = await axios.get(`http://127.0.0.1:8000/recommend_series?series=${encodeURIComponent(series)}`);
+        const mlBackend = process.env.ML_BACKEND_URL || 'http://127.0.0.1:8000';
+        const response = await axios.get(`${mlBackend}/recommend_series?series=${encodeURIComponent(series)}`);
         console.log(`[SERIES] Backend responded for: ${series}`);
         res.json(response.data);
     } catch (error) {
@@ -39,7 +41,7 @@ app.get("/api/recommend_series", async (req, res) => {
     }
 });
 
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`Node server running on http://localhost:${PORT}`);
 });

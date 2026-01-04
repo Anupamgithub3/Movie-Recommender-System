@@ -18,6 +18,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.get("/")
+def home():
+    return {"message": "Movie Recommendation API is functioning correctly"}
+
 # =====================
 # LOAD CSV FILES
 # =====================

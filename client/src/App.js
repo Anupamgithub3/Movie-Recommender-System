@@ -211,7 +211,8 @@ function App() {
       if (activeSection === 'Series') {
         // Series search path — use the webseries ML dataset as the source of truth
         console.log("Searching webseries dataset for:", movie);
-        const response = await fetch(`http://127.0.0.1:5000/api/recommend_series?series=${encodeURIComponent(movie)}`);
+        const apiBase = process.env.REACT_APP_API_URL || 'https://movie-recommender-system-f6j8.onrender.com';
+        const response = await fetch(`${apiBase}/api/recommend_series?series=${encodeURIComponent(movie)}`);
         const data = await response.json();
 
         // If ML backend doesn't find the series in our CSV, fall back to TMDB search/tv
@@ -289,7 +290,8 @@ function App() {
 
         const movieMain = mTop;
         console.log("Found movie match:", movieMain.title);
-        const response = await fetch(`http://127.0.0.1:5000/api/recommend?movie=${encodeURIComponent(movieMain.title)}`);
+        const apiBase = process.env.REACT_APP_API_URL || 'https://movie-recommender-system-f6j8.onrender.com';
+        const response = await fetch(`${apiBase}/api/recommend?movie=${encodeURIComponent(movieMain.title)}`);
         const data = await response.json();
 
         if (data.error) {
@@ -354,7 +356,8 @@ function App() {
 
           const movieMain = mTop;
           console.log("Found movie match:", movieMain.title);
-          const response = await fetch(`http://127.0.0.1:5000/api/recommend?movie=${encodeURIComponent(movieMain.title)}`);
+          const apiBase = process.env.REACT_APP_API_URL || 'https://movie-recommender-system-f6j8.onrender.com';
+          const response = await fetch(`${apiBase}/api/recommend?movie=${encodeURIComponent(movieMain.title)}`);
           const data = await response.json();
 
           if (data.error) {
