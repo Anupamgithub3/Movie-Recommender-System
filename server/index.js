@@ -5,7 +5,7 @@ const path = require("path");
 
 const app = express();
 app.use(cors());
-app.use(express.static(path.join(__dirname, "../frontend"))); // Serve frontend files using absolute path
+// Removed: app.use(express.static(path.join(__dirname, "../frontend")));
 
 // Proxy route to ML backend for movies
 app.get("/api/recommend", async (req, res) => {
