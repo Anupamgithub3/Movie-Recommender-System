@@ -11,7 +11,7 @@ async function getRecommendation() {
     }
 
     // Call your backend API
-    const response = await fetch(`http://127.0.0.1:8000/recommend?movie=${movie}`);
+    const response = await fetch(`http://localhost:5000/api/recommend?movie=${movie}`);
     const data = await response.json();
 
     const resultList = document.getElementById("resultList");
